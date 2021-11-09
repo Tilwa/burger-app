@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import UserInput from './UserInput/UserInput';
+import UserOutput from './UserOutput/UserOutput';
+
 
 class App extends Component {
   constructor(props){
@@ -10,7 +13,8 @@ class App extends Component {
         {name: 'Qasim', age: 28},
         {name: 'Hamza', age: 26},
         {name: 'Haider', age: 25}
-      ]
+      ],
+      username: 'Pakistani Boy'
     };
   }
   
@@ -34,11 +38,29 @@ class App extends Component {
       ]
     });
   }
+
+  eventHandler = (event) => {
+    this.setState({
+      username: event.target.value
+    });
+  }
+
   render() {
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit', 
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
     return (
       <div className="App">
         <h1>Hi i am a React app</h1>
-        <button onClick={this.switchNameHandler.bind(this, "oye hoayy")}>Switch Name</button>
+        
+        <button 
+        onClick={this.switchNameHandler.bind(this, "oye hoayy")}
+        style={style}
+        >Switch Name</button>
         <Person 
         name={this.state.persons[0].name} 
         age={this.state.persons[0].age}
@@ -52,6 +74,17 @@ class App extends Component {
         name={this.state.persons[2].name} 
         age={this.state.persons[2].age}
         change={this.nameChangeHandler}></Person>
+
+
+
+
+        <hr />
+        <UserInput 
+        changed={this.eventHandler}
+        username={this.state.username}/>
+        <UserOutput username={this.state.username}
+        />
+        <UserOutput username='Pindi Boy'/>
       </div>
     );
   }
